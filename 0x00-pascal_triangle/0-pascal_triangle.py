@@ -16,4 +16,4 @@ def pascal_triangle(n):
             temp.append(triangle[i - 1][j] + triangle[i - 1][j + 1])
         temp.append(1)
         triangle.append(temp)
-    return k
+    return triangle
