@@ -3,6 +3,7 @@
 pascal triangle module
 """
 
+
 def pascal_triangle(n):
     '''Function that returns Pascal triangle of n'''
     triangle = []
