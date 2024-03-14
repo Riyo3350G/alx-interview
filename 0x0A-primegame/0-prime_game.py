@@ -2,45 +2,35 @@
 """Prime Game Module"""
 
 
-def is_prime(n):
-    """Check if a number is prime."""
-    if n <= 1:
-        return False
-    for i in range(2, int(n**0.5) + 1):
-        if n % i == 0:
-            return False
-    return True
-
-
-def sieve_of_eratosthenes(n):
-    """Return a list of prime numbers up to n."""
-    prime = [True for _ in range(n+1)]
+def countPrime(n):
+    """Count the number of prime numbers."""
+    prime = [True for i in range(n + 1)]
     p = 2
-    while (p * p <= n):
-        if (prime[p]):
-            for i in range(p * p, n+1, p):
+    while p * p <= n:
+        if prime[p]:
+            for i in range(p * p, n + 1, p):
                 prime[i] = False
         p += 1
-    prime_numbers = [p for p in range(2, n+1) if prime[p]]
-    return prime_numbers
+    count = 0
+    for p in range(2, n + 1):
+        if prime[p]:
+            count += 1
+    return count
 
 
 def isWinner(x, nums):
-    """isWinner function thats return the winner of the primegame"""
-    maria_wins = 0
-    ben_wins = 0
-    for n in nums:
-        primes = sieve_of_eratosthenes(n)
-        # The winner is decided by the parity
-        # of the number of prime numbers in the set.
-        if len(primes) % 2 == 0:
-            ben_wins += 1
-        else:
-            maria_wins += 1
-
-    if maria_wins > ben_wins:
-        return "Maria"
-    elif ben_wins > maria_wins:
-        return "Ben"
-    else:
+    """Determine the winner based on prime number count."""
+    ben = 0
+    maria = 0
+    if x <= 0 or not nums:
         return None
+    for num in range(x):
+        if countPrime(nums[num]) % 2 == 0:
+            ben += 1
+        else:
+            maria += 1
+    if ben > maria:
+        return "Ben"
+    if ben == maria:
+        return None
+    return "Maria"
